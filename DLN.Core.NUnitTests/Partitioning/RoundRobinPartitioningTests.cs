@@ -1,7 +1,7 @@
 using DLN.Core.Partitioning;
 using NUnit.Framework;
 
-namespace DLN.Core.NUnitTests
+namespace DLN.Core.NUnitTests.Partitioning
 {
     public class RoundRobinPartitioningTests
     {
@@ -21,7 +21,7 @@ namespace DLN.Core.NUnitTests
             Assert.AreEqual(pc.WhatPartition(null), 0);
         }
 
-
+        [Test]
         public void TestItWorksWith2()
         {
             RoundRobinPartitionChooser pc = new RoundRobinPartitionChooser(2);

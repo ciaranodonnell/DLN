@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DLN.Storage
 {
-    class SegmentIndex : IDisposable
+    public class SegmentIndex : IDisposable
     {
 
 
@@ -30,12 +30,15 @@ namespace DLN.Storage
 
         private void LoadIndexFromFile(FileInfo indexFileInfo)
         {
+            long maxSN = 0;
             using (var existingIndex = File.Open(indexFileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var reader = new BinaryReader(existingIndex))
             {
-                while(existingIndex.Position < existingIndex.Length)
-                    cache.Add(reader.ReadInt64(), reader.ReadInt64());
+                while (existingIndex.Position < existingIndex.Length)
+                    cache.Add(maxSN = reader.ReadInt64(),  reader.ReadInt64());
             }
+
+            this.MaxSequenceNumber = maxSN;
         }
 
         public void AddMessage(long sequenceNumber, long offset)
@@ -44,6 +47,8 @@ namespace DLN.Storage
             cache.Add(sequenceNumber, offset);
             indexWriter.Write(sequenceNumber);
             indexWriter.Write(offset);
+            
+            MaxSequenceNumber = sequenceNumber;
 
             if (instantFlushToDisk)
                 indexWriter.Flush();
@@ -52,11 +57,18 @@ namespace DLN.Storage
 
 
         bool isDisposed = false;
+
+        public long MaxSequenceNumber { get; private set; }
+
         public void Dispose()
         {
-            if(!isDisposed)
+            if (!isDisposed)
                 indexWriter.Dispose();
         }
 
+        internal long GetLocation(int sequenceNumber)
+        {
+            return cache[sequenceNumber];
+        }
     }
 }

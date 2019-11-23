@@ -10,7 +10,7 @@ namespace DLN.Core.Interfaces
 
         string TopicName { get; }
 
-        long Publish(byte[] message);
+        long Publish(PublishRequest pubRequest);
 
 
         byte[] Consume(long sequenceNumber);
