@@ -11,7 +11,7 @@ namespace DLN.Storage
 
         
 
-        public Partition(Log topic, int partitionNumber)
+        public Partition(Topic topic, int partitionNumber)
         {
 
             this.PartitionNumber = partitionNumber;
@@ -42,6 +42,6 @@ namespace DLN.Storage
         public int NextSequenceNumber { get; private set; }
         
         public int PartitionNumber { get; set; }
-        public Log Log { get; }
+        public Topic Log { get; }
     }
 }

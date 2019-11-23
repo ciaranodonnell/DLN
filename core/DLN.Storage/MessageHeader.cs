@@ -14,5 +14,7 @@ namespace DLN.Storage
         public long CreateTime;
         public int KeySize;
         public int ValueSize;
+        public string Key;
+
     }
 }
