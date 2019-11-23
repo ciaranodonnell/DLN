@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLN.Service", "DLN.Service\DLN.Service.csproj", "{8A2DEB43-E0FD-4A8B-8782-47BDFB0CD130}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLN.Core", "DLN.Storage\DLN.Core.csproj", "{04CF4AD7-3519-4A29-9869-2F74D886E942}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A2DEB43-E0FD-4A8B-8782-47BDFB0CD130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A2DEB43-E0FD-4A8B-8782-47BDFB0CD130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A2DEB43-E0FD-4A8B-8782-47BDFB0CD130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A2DEB43-E0FD-4A8B-8782-47BDFB0CD130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04CF4AD7-3519-4A29-9869-2F74D886E942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04CF4AD7-3519-4A29-9869-2F74D886E942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04CF4AD7-3519-4A29-9869-2F74D886E942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04CF4AD7-3519-4A29-9869-2F74D886E942}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DCF75F68-E8DA-47C6-BE2F-8E2AA7387BB0}
+	EndGlobalSection
+EndGlobal
