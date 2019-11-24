@@ -63,7 +63,7 @@ namespace DLN.Storage
         public long FirstSequenceNumber { get; private set; }
         public long MaxSequenceNumber { get { return index.MaxSequenceNumber; } }
 
-        internal void WriteMessage(Message pubRequest)
+        internal void WriteMessage(Record pubRequest)
         {
 
             index.AddMessage(pubRequest.SequenceNumber, this.writer.BaseStream.Position);
@@ -88,7 +88,7 @@ namespace DLN.Storage
         }
 
 
-        internal Message ReadMessage(long sequenceNumber)
+        internal Record ReadMessage(long sequenceNumber)
         {
             var seekIndex = index.GetLocation(sequenceNumber);
 
@@ -100,7 +100,7 @@ namespace DLN.Storage
 
             reader.BaseStream.Seek(seekIndex.Value, SeekOrigin.Begin);
 
-            var message = new Message();
+            var message = new Record();
 
             message.SequenceNumber = reader.ReadInt64();
             var keyLen = reader.ReadInt32();

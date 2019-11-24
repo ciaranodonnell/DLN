@@ -55,7 +55,7 @@ namespace DLN.Storage
 
         public bool IsPrimary { get; set; }
 
-        public Message Consume(long sequenceNumber)
+        public Record Consume(long sequenceNumber)
         {
             if (sequenceNumber < nextSequenceNumber)
             {
@@ -70,10 +70,10 @@ namespace DLN.Storage
             {
                 throw new ArgumentOutOfRangeException($"The sequence number ({sequenceNumber}) is higher than the Topics maximum sequence number ({nextSequenceNumber-1})");
             }
-            throw new MessageNotFoundException($"Cant find messsage with sequence number {sequenceNumber}");
+            throw new RecordNotFoundException($"Cant find messsage with sequence number {sequenceNumber}");
         }
 
-        public long Publish(Message publishedMessage)
+        public long Publish(Record publishedMessage)
         {
             //Set the sequence number to the next sequence number. this is incremented at the end so failed writes dont increment the number causing gaps.
             publishedMessage.SequenceNumber = nextSequenceNumber;

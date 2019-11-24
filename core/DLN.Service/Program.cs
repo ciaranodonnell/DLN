@@ -23,7 +23,7 @@ namespace DLN.Service
             for (int x = 0; x < 10; x++)
             {
 
-                topic.Publish(new Message
+                topic.Publish(new Record
                 {
                     MessageData = System.Text.Encoding.UTF8.GetBytes("test message " + x.ToString()),
                     PartitionKey = x.ToString(),

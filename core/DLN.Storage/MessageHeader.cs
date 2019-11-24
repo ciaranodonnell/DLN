@@ -6,7 +6,7 @@ using System.Text;
 namespace DLN.Storage
 {
     [StructLayout(LayoutKind.Sequential)]
-    class MessageHeader
+    class RecordHeader
     {
 
         public long SequenceNumber;

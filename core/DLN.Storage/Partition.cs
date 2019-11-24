@@ -37,7 +37,7 @@ namespace DLN.Storage
 
         public long MaxSequenceNumber { get { return maxSequenceNumber; } }
 
-        public void Produce(Message pubRequest)
+        public void Produce(Record pubRequest)
         {
             if (currentSegment == null)
             {
@@ -82,7 +82,7 @@ namespace DLN.Storage
             CheckForSegmentClosing();
         }
 
-        internal Message Consume(long sequenceNumber)
+        internal Record Consume(long sequenceNumber)
         {
             Segment targetSegment=null;
             foreach(var segment in segments)

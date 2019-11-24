@@ -2,7 +2,7 @@
 
 namespace DLN.Storage
 {
-    public class Message
+    public class Record
     {
 
         public string PartitionKey { get; set; }
