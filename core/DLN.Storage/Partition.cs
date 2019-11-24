@@ -12,7 +12,7 @@ namespace DLN.Storage
         private Segment currentSegment;
         private List<Segment> segments = new List<Segment>();
         private long maxSequenceNumber;
-        private readonly string segmentFileFilter = "*.log";
+        private readonly string segmentFileFilter = "*.";
 
         public Partition(Topic topic, int partitionNumber)
         {
@@ -37,7 +37,7 @@ namespace DLN.Storage
 
         public long MaxSequenceNumber { get { return maxSequenceNumber; } }
 
-        public void Produce(PublishRequest pubRequest)
+        public void Produce(Message pubRequest)
         {
             if (currentSegment == null)
             {
@@ -82,6 +82,20 @@ namespace DLN.Storage
             CheckForSegmentClosing();
         }
 
+        internal Message Consume(long sequenceNumber)
+        {
+            Segment targetSegment=null;
+            foreach(var segment in segments)
+            {
+                if (segment.FirstSequenceNumber <= sequenceNumber)
+                    targetSegment = segment;
+                else
+                    break;
+            }
+            
+            return targetSegment?.ReadMessage(sequenceNumber);
+
+        }
 
         public int NextSequenceNumber { get; private set; }
 

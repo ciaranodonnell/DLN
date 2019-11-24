@@ -23,13 +23,26 @@ namespace DLN.Service
             for (int x = 0; x < 10; x++)
             {
 
-                topic.Publish(new PublishRequest
+                topic.Publish(new Message
                 {
                     MessageData = System.Text.Encoding.UTF8.GetBytes("test message " + x.ToString()),
                     PartitionKey = x.ToString(),
                     PublishedAt = DateTimeOffset.UtcNow
                 });
             }
+
+            for (int x = 0; x < 10; x++)
+            {
+
+                var msg= topic.Consume(x+1);
+
+                Console.WriteLine(System.Text.Encoding.UTF8.GetString(msg.MessageData));
+
+            }
+
+
+
+
         }
     }
 }

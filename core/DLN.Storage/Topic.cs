@@ -55,17 +55,30 @@ namespace DLN.Storage
 
         public bool IsPrimary { get; set; }
 
-        public byte[] Consume(long sequenceNumber)
+        public Message Consume(long sequenceNumber)
         {
-            throw new NotImplementedException();
+            if (sequenceNumber < nextSequenceNumber)
+            {
+                foreach(var p in partitions)
+                {
+                    var msg = p.Consume(sequenceNumber);
+                    if (msg != null) return msg;
+                }
+                
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException($"The sequence number ({sequenceNumber}) is higher than the Topics maximum sequence number ({nextSequenceNumber-1})");
+            }
+            throw new MessageNotFoundException($"Cant find messsage with sequence number {sequenceNumber}");
         }
 
-        public long Publish(PublishRequest pubRequest)
+        public long Publish(Message publishedMessage)
         {
             //Set the sequence number to the next sequence number. this is incremented at the end so failed writes dont increment the number causing gaps.
-            pubRequest.SequenceNumber = nextSequenceNumber;
-            var partition = PartitionChooser.WhatPartition(pubRequest.PartitionKey);
-            partitions[partition].Produce(pubRequest);
+            publishedMessage.SequenceNumber = nextSequenceNumber;
+            var partition = PartitionChooser.WhatPartition(publishedMessage.PartitionKey);
+            partitions[partition].Produce(publishedMessage);
             nextSequenceNumber++;
 
             return 0;

@@ -66,9 +66,10 @@ namespace DLN.Storage
                 indexWriter.Dispose();
         }
 
-        internal long GetLocation(int sequenceNumber)
+        internal long? GetLocation(long sequenceNumber)
         {
-            return cache[sequenceNumber];
+            long location = 0;
+            return cache.TryGetValue(sequenceNumber, out location) ? (long?)location : null;
         }
     }
 }

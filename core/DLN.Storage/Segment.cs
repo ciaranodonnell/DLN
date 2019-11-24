@@ -63,7 +63,7 @@ namespace DLN.Storage
         public long FirstSequenceNumber { get; private set; }
         public long MaxSequenceNumber { get { return index.MaxSequenceNumber; } }
 
-        internal void WriteMessage(PublishRequest pubRequest)
+        internal void WriteMessage(Message pubRequest)
         {
 
             index.AddMessage(pubRequest.SequenceNumber, this.writer.BaseStream.Position);
@@ -82,18 +82,25 @@ namespace DLN.Storage
 
             writer.Write(pubRequest.MessageData);
 
-
+            writer.Flush();
 
 
         }
 
 
-        internal PublishRequest ReadMessage(int sequenceNumber)
+        internal Message ReadMessage(long sequenceNumber)
         {
             var seekIndex = index.GetLocation(sequenceNumber);
-            reader.BaseStream.Seek(seekIndex, SeekOrigin.Begin);
 
-            var message = new PublishRequest();
+            if (!seekIndex.HasValue)
+            {
+                //its not in this segment, likely meaning its not in this partition
+                return null;
+            }
+
+            reader.BaseStream.Seek(seekIndex.Value, SeekOrigin.Begin);
+
+            var message = new Message();
 
             message.SequenceNumber = reader.ReadInt64();
             var keyLen = reader.ReadInt32();
@@ -103,7 +110,7 @@ namespace DLN.Storage
             if (pkeyLen > 0) message.PartitionKey = reader.ReadString();
 
             var msgLen = reader.ReadInt32();
-            reader.ReadBytes(msgLen);
+            message.MessageData = reader.ReadBytes(msgLen);
 
             return message;
         }
