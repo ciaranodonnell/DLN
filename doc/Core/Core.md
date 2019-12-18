@@ -14,7 +14,7 @@ This table maps equivilant terminology
 | Cluster | *Same everywhere* | This is a group of Brokers that are operating together as a single unit. This is done to provide scale and resiliance |
 | Topic | Log, Subject, Queue | This is a grouping of messaing of a similar nature |
 | Produce | Publish | This is the action to send a message to a Topic |
-| Consume| Subscribe | This is the action to consume or receive a message from the broker |
+| Consume| Subscribe | This is the action to consume or receive a message from the broker. It seems more normal to use Consume when you are fetching a message or batch of messages as a poll, and subscribe when you are requesting that messages be dispatched to you automatically. |
 
 
 

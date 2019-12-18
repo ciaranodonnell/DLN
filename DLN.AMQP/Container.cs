@@ -2,7 +2,10 @@
 
 namespace DLN.AMQP
 {
-    public class Container
+    public abstract class Container
     {
+
+
+
     }
 }

@@ -11,13 +11,14 @@ namespace DLN.Storage
     {
         private List<Partition> partitions;
         long nextSequenceNumber = 0;
-        public Topic(string topicName, bool isPrimary, string mainStorageFolder, int partitionCount, IPartitionChooser partitionChooser)
+        public Topic(string topicName, bool isPrimary, string mainStorageFolder, int partitionCount)
         {
             this.TopicName = topicName;
             this.IsPrimary = IsPrimary;
 
             this.PartitionCount = partitionCount;
-            this.PartitionChooser = partitionChooser;
+
+            this.PartitionChooser = new HashModPartitionCountBasedChooser(this.PartitionCount);
 
             InitializeTopic(mainStorageFolder);
         }

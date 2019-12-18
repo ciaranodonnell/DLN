@@ -7,11 +7,14 @@ namespace DLN.Core.Configuration
     public class TopicConfig 
     {
 
-        public enum SegmentRoleReasons { None, TimeInMilliseconds, MessageCount};
+        public enum SegmentRollReasons { None, TimeInMilliseconds, MessageCount};
 
-        public SegmentRoleReasons SegmentRoleReason { get; set; }
+        public SegmentRollReasons SegmentRollReason { get; set; }
 
-        public int SegmentRoleNumber { get; set; }
+        public int SegmentRollNumber { get; set; }
 
+
+        public int PrimaryBrokerId { get; set; }
+        public int PartitionCount { get; internal set; }
     }
 }

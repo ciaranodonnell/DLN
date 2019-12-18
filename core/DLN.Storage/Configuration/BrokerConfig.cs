@@ -12,14 +12,18 @@ namespace DLN.Core.Configuration
             KnownTopicConfigs = new Dictionary<string, TopicConfig>();
         }
 
-        public string StorageFolderPath { get; set; }
 
-        public ClusterConfiguration ClusterConfig { get; set; }
-
+        public StorageConfig Storage { get; set; }
 
         public TopicConfig DefaultTopicConfig { get; set; }
 
         public Dictionary<string, TopicConfig> KnownTopicConfigs { get; protected set; }
+        
+        
+        public string ClusterName { get; set; }
+        
+        public int BrokerId { get; internal set; }
+
 
     }
 }
